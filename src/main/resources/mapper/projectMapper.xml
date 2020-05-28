@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fei.softwaredevlopmentliftcycle.mapper.ProjectMapper">
+    <resultMap id="projectMap" type="com.fei.softwaredevlopmentliftcycle.data.Project">
+        <id column="id" property="id"/>
+        <result column="project_name" property="projectName"/>
+        <result column="project_state" property="projectState"/>
+        <result column="project_desc" property="projectDesc"/>
+        <result column="create_time" property="createTime"/>
+        <result column="delete_time" property="deleteTime"/>
+    </resultMap>
+
+    <resultMap id="projectFileMap" type="com.fei.softwaredevlopmentliftcycle.data.ProjectFile">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="create_time" property="createTime"/>
+        <result column="delete_time" property="deleteTime"/>
+    </resultMap>
+    <insert id="insertProjectFile">
+        insert into `project_file` (project_id,name,url,create_time) values
+        <foreach collection="fileModels" item="filemodel" separator=",">
+            (#{projectId},#{filemodel.name},#{filemodel.url},NOW())
+        </foreach>
+    </insert>
+</mapper>

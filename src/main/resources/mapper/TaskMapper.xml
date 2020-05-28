@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fei.softwaredevlopmentliftcycle.mapper.TaskMapper">
+
+    <resultMap id="projectFileMap" type="com.fei.softwaredevlopmentliftcycle.data.Task">
+        <id column="id" property="id"/>
+        <result column="task_name" property="taskName"/>
+        <result column="dev_id" property="devId"/>
+        <result column="project_id" property="projectId"/>
+        <result column="pre_cost" property="preCost"/>
+        <result column="task_desc" property="taskDesc"/>
+        <result column="dev_name" property="devName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="delete_time" property="deleteTime"/>
+    </resultMap>
+
+</mapper>

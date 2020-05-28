@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fei.softwaredevlopmentliftcycle.mapper.MessageMapper">
+    <resultMap id="projectFileMap" type="com.fei.softwaredevlopmentliftcycle.data.Message">
+        <id column="id" property="id"/>
+        <result column="message_title" property="messageTitle"/>
+        <result column="message_status" property="messageStatus"/>
+        <result column="receive_id" property="receiveId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="delete_time" property="deleteTime"/>
+    </resultMap>
+    <insert id="notice">
+        INSERT INTO `message`(message_title,receive_id,create_time,message_status) values
+        <foreach collection="ids" item="mid" separator=",">
+            (#{messageTitle},#{mid},NOW(),0)
+        </foreach>
+    </insert>
+</mapper>

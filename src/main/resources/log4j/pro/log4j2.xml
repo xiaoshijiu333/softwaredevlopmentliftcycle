@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appenders>
+        <!-- fileName：输出路径  filePattern：命名规则（回滚的新文件命名规则） -->
+        <RollingFile name="file" fileName="/logs/vuetest/service.log"
+                     filePattern="/logs/vuetest/service-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <!-- 大于等于该级别，匹配接收，不匹配拒绝 -->
+                <ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <!-- 输出格式 -->
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5p] [%F:%M:%L] : %m%n"/>
+            <Policies>
+                <!-- TimeBasedTriggeringPolicy 1的单位是前面命名规则里面的最小粒度 -->
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <!-- SizeBasedTriggeringPolicy单个文件的大小限制 -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy同一个文件下的最大文件数，与前面定义的命名规则中的%i计数器一起使用 -->
+            <DefaultRolloverStrategy max="50"/>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <!--过滤掉spring无用的debug信息-->
+        <logger name="org.springframework" level="warn"></logger>
+
+        <!-- 如果没有指定logger的级别，只能打印root级别以上的日志 -->
+        <root level="warn">
+            <appender-ref ref="file"/>
+        </root>
+    </loggers>
+
+</configuration>

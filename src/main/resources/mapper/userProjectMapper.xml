@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fei.softwaredevlopmentliftcycle.mapper.UserProjectMapper">
+    <resultMap id="userMap" type="com.fei.softwaredevlopmentliftcycle.data.UserProject">
+        <id column="id" property="id"/>
+        <result column="project_id" property="projectId"/>
+        <result column="user_id" property="userId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="delete_time" property="deleteTime"/>
+    </resultMap>
+
+    <!--通用mapper只适合单表操作，设计多表以及复杂批量sql还是推荐使用mybatis自己写sql的方式-->
+    <insert id="create">
+        INSERT INTO `user_project`(user_id,project_id,create_time) values
+        <foreach collection="projectPeopleIds" item="pid" separator=",">
+            (#{pid},#{projectId},NOW())
+        </foreach>
+    </insert>
+</mapper>

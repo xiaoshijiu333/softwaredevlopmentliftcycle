@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fei.softwaredevlopmentliftcycle.mapper.CommentMapper">
+    <resultMap id="projectFileMap" type="com.fei.softwaredevlopmentliftcycle.data.Comment">
+        <id column="id" property="id"/>
+        <result column="comment_context" property="commentContext"/>
+        <result column="user_id" property="userId"/>
+        <result column="project_id" property="projectId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="delete_time" property="deleteTime"/>
+    </resultMap>
+</mapper>

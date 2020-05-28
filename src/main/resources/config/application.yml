@@ -1,0 +1,25 @@
+server:
+  port: 8088
+
+spring:
+  #指定当前的环境------在pom文件中取值使用@profiles.active@
+  profiles:
+    active: @profiles.active@
+  #数据源
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/softwaredevlopmentliftcycle?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+
+#日志配置文件位置
+logging:
+  config: classpath:log4j/${spring.profiles.active}/log4j2.xml
+  #开启打印sql
+  level:
+    com.fei.softwaredevlopmentliftcycle.mapper: debug
+
+#Mybatis配置文件
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
