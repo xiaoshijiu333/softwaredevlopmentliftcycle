@@ -1,6 +1,6 @@
 package com.fei.softwaredevlopmentliftcycle.controller.comment;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.comment.CommentModel;
 import com.fei.softwaredevlopmentliftcycle.service.CommentService;
 import org.apache.commons.lang3.StringUtils;

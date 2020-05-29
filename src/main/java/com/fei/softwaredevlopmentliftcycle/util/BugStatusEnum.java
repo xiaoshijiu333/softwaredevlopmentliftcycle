@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 public enum BugStatusEnum {
 
-    待完成(0, "待完成"), 待检查(1, "待检查"), 不通过(2, "不通过"), 关闭(3, "关闭"), 挂起(4, "挂起");
+    WAIT_FINISH(0, "待完成"), WAIT_CHECK(1, "待检查"), NOT_SUCCESS(2, "不通过"), CLOSE(3, "关闭"), HANG(4, "挂起");
 
     @Getter
     private int stateCode;

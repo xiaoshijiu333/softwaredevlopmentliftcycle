@@ -91,8 +91,8 @@ public class UserServiceImpl implements UserService {
         Example example = new Example(User.class);
         example.createCriteria().andEqualTo(User.DELETE_TIME, "");
         List<User> users = userMapper.selectByExample(example);
+        List<UserModel> userModels = new ArrayList<>();
         if (!CollectionUtils.isEmpty(users)) {
-            List<UserModel> userModels = new ArrayList<>();
             users.forEach(u -> {
                 UserModel userModel = new UserModel();
                 BeanUtils.copyProperties(u, userModel, UserModel.class);
@@ -121,9 +121,8 @@ public class UserServiceImpl implements UserService {
                     }
                 }
             });
-            return userModels;
         }
-        return null;
+        return userModels;
     }
 
     @Override
@@ -145,9 +144,7 @@ public class UserServiceImpl implements UserService {
                 example2.createCriteria().andEqualTo(User.DELETE_TIME, "").andIn(User.USER_ID,
                         userRoles.stream().map(UserRole::getUserId).collect(Collectors.toList()));
                 List<User> users = userMapper.selectByExample(example2);
-                List<UserModel> userModels = JSON.parseArray(JSON.toJSONString(users),
-                        UserModel.class);
-                return userModels;
+                return JSON.parseArray(JSON.toJSONString(users), UserModel.class);
             }
         }
         return null;

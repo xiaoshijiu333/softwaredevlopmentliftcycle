@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 public enum SexEnum {
 
-    男(0, "男"), 女(1, "女"), 未知(2, "未知");
+    MAN(0, "男"), WOMEN(1, "女"), UNKNOW(2, "未知");
 
     @Getter
     private int sexCode;

@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 public enum MessageEnum {
 
-    未读(0, "未读"), 已读(1, "已读");
+    NOT_READ(0, "未读"), READ(1, "已读");
 
     @Getter
     private int msgCode;

@@ -9,6 +9,10 @@ import java.util.Date;
  * @Description: $value$
  */
 public class TimeAddHours {
+
+    private TimeAddHours() {
+    }
+
     public static Date addDateMinut(Date date, int hour) {
         if (date == null) {
             return null;
@@ -18,7 +22,6 @@ public class TimeAddHours {
         // 24小时制
         cal.add(Calendar.HOUR, hour);
         date = cal.getTime();
-        cal = null;
         return date;
     }
 }

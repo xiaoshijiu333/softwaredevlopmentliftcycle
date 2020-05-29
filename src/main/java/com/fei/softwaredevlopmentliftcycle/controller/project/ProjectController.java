@@ -1,6 +1,7 @@
 package com.fei.softwaredevlopmentliftcycle.controller.project;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.constant.StatusConstant;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.project.ProjectModel;
 import com.fei.softwaredevlopmentliftcycle.model.project.WebCreateProjectModel;
 import com.fei.softwaredevlopmentliftcycle.service.ProjectService;
@@ -32,7 +33,7 @@ public class ProjectController {
      */
     @GetMapping("/getList")
     public ApiResult<List<ProjectModel>> getListByToken(String token, Boolean isDoing,
-            Integer status) {
+                                                        Integer status) {
         if (StringUtils.isEmpty(token)) {
             return ApiResult.fail(500, "请求失败,token不存在");
         }
@@ -45,7 +46,7 @@ public class ProjectController {
     @PostMapping("/create")
     public ApiResult<Integer> create(@RequestBody WebCreateProjectModel webCreateProjectModel) {
         if (webCreateProjectModel == null || webCreateProjectModel.getProjectName() == null) {
-            return ApiResult.fail(500, "请求失败，参数错误");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(projectService.create(webCreateProjectModel));
     }
@@ -56,7 +57,7 @@ public class ProjectController {
     @PostMapping("/delete")
     public ApiResult<String> delete(Integer pid) {
         if (pid == null) {
-            return ApiResult.fail(500, "请求失败，ID为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         projectService.delete(pid);
         return ApiResult.ok("删除成功");
@@ -68,7 +69,7 @@ public class ProjectController {
     @GetMapping("/getById")
     public ApiResult<ProjectModel> getById(Integer pid) {
         if (pid == null) {
-            return ApiResult.fail(500, "请求失败，ID为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(projectService.getById(pid));
     }
@@ -79,7 +80,7 @@ public class ProjectController {
     @PostMapping("/edit")
     public ApiResult<String> edit(@RequestBody WebCreateProjectModel webCreateProjectModel) {
         if (webCreateProjectModel == null || webCreateProjectModel.getProjectName() == null) {
-            return ApiResult.fail(500, "请求失败，参数错误");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         projectService.edit(webCreateProjectModel);
         return ApiResult.ok("更新成功");
@@ -91,7 +92,7 @@ public class ProjectController {
     @PostMapping("/editState")
     public ApiResult<String> editState(Integer pid, Integer projectState) {
         if (projectState == null || pid == null) {
-            return ApiResult.fail(500, "请求失败，参数错误");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         projectService.editState(pid, projectState);
         String stateDesc = StateEnum.getByCode(projectState + 1).getStateDesc();

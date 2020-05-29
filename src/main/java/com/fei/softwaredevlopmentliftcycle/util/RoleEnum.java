@@ -8,7 +8,7 @@ import lombok.Getter;
  * @Description: 角色枚举
  */
 public enum RoleEnum {
-    产品经理("manager", "产品经理"), 开发("dev", "开发"), 测试("test", "测试"), 运维("pro", "运维"), 超级管理员("superadmin",
+    MANAGER("manager", "产品经理"), DEV("dev", "开发"), TEST("test", "测试"), PRO("pro", "运维"), SUPERADMIN("superadmin",
             "超级管理员");
 
     @Getter

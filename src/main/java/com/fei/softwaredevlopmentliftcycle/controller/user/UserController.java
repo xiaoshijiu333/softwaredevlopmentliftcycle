@@ -1,9 +1,9 @@
 package com.fei.softwaredevlopmentliftcycle.controller.user;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.constant.StatusConstant;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.data.Role;
 import com.fei.softwaredevlopmentliftcycle.data.User;
-import com.fei.softwaredevlopmentliftcycle.model.bug.BugModel;
 import com.fei.softwaredevlopmentliftcycle.model.role.RoleModel;
 import com.fei.softwaredevlopmentliftcycle.model.user.CreateUserModel;
 import com.fei.softwaredevlopmentliftcycle.model.user.UserModel;
@@ -16,12 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
@@ -92,7 +90,7 @@ public class UserController {
     @GetMapping("/getProUser")
     public ApiResult<List<UserModel>> getProUser(Integer pid, String roleName) {
         if (pid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(userService.getProUser(pid, roleName));
     }
@@ -100,7 +98,7 @@ public class UserController {
     @PostMapping("/delete")
     public ApiResult<String> delete(Integer uid) {
         if (uid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         userService.delete(uid);
         return ApiResult.ok("删除成功");
@@ -132,9 +130,7 @@ public class UserController {
         httpHeaders.add("Content-Disposition", "attachment;filename=" + filename);
 
         // 将byte数组、HttpHeader和HttpStatus传入ResponseEntity
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(workbook.getBytes(),
-                httpHeaders, HttpStatus.OK);
-        return responseEntity;
+        return new ResponseEntity<>(workbook.getBytes(), httpHeaders, HttpStatus.OK);
     }
 
     @GetMapping("/roles")
@@ -145,7 +141,7 @@ public class UserController {
     @PostMapping("/edit")
     public ApiResult<String> editRole(@RequestBody RoleModel roleModel) {
         if (roleModel.getId() == null || StringUtils.isEmpty(roleModel.getRoleName())) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         userService.editRole(roleModel);
         return ApiResult.ok("角色修改成功");
@@ -154,7 +150,7 @@ public class UserController {
     @PostMapping("/create")
     public ApiResult<Integer> create(@RequestBody CreateUserModel userModel) {
         if (StringUtils.isEmpty(userModel.getUsername()) || userModel.getRoleId() == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(userService.create(userModel));
     }

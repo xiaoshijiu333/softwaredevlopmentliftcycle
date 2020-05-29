@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 public enum CaseStatusEnum {
 
-    待完成(0, "待完成"), 通过(1, "通过"), 不通过(2, "不通过");
+    WAIT_FINISH(0, "待完成"), SUCCESS(1, "通过"), NOT_SUCCESS(2, "不通过");
 
     @Getter
     private int stateCode;

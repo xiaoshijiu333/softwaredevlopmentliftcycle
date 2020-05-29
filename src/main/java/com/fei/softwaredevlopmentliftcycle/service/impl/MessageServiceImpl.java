@@ -58,9 +58,8 @@ public class MessageServiceImpl implements MessageService {
                         .setMeaasgeStatus(MessageEnum.getByCode(m.getMessageStatus()).getMsgDesc());
                 messageModels.add(messageModel);
             });
-            return messageModels;
         }
-        return null;
+        return messageModels;
     }
 
     @Override

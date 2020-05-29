@@ -8,7 +8,7 @@ import lombok.Getter;
  * @Description: 项目状态枚举
  */
 public enum StateEnum {
-    需求分析阶段(0, "需求分析阶段"), 研发阶段(1, "研发阶段"), 测试阶段(2, "测试阶段"), 发布阶段(3, "发布阶段"), 已上线(4, "已上线");
+    XUQIUFENXI(0, "需求分析阶段"), YANFA(1, "研发阶段"), CESHI(2, "测试阶段"), FABU(3, "发布阶段"), SHANGXIAN(4, "已上线");
 
     @Getter
     private int stateCode;

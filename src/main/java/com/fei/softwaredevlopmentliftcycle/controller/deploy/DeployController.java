@@ -1,6 +1,6 @@
 package com.fei.softwaredevlopmentliftcycle.controller.deploy;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.deploy.DeployModel;
 import com.fei.softwaredevlopmentliftcycle.service.DeployService;
 import org.springframework.beans.factory.annotation.Autowired;

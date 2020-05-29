@@ -67,9 +67,8 @@ public class BugServiceImpl implements BugService {
                 bugModel.setBugStatus(BugStatusEnum.getByCode(b.getBugStatus()).getStateDesc());
                 bugModels.add(bugModel);
             });
-            return bugModels;
         }
-        return null;
+        return bugModels;
     }
 
     @Override

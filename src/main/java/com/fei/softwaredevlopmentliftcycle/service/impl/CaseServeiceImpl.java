@@ -49,17 +49,16 @@ public class CaseServeiceImpl implements CaseServeice {
                     .andEqualTo(Case.DELETE_TIME, "").andEqualTo(Case.TEST_NAME, name);
         }
         List<Case> cases = caseMapper.selectByExample(example);
+        List<CaseModel> caseModels = new ArrayList<>();
         if (!CollectionUtils.isEmpty(cases)) {
-            List<CaseModel> caseModels = new ArrayList<>();
             cases.forEach(c -> {
                 CaseModel caseModel = new CaseModel();
                 BeanUtils.copyProperties(c, caseModel, CaseModel.class);
                 caseModel.setCaseStatus(CaseStatusEnum.getByCode(c.getCaseStatus()).getStateDesc());
                 caseModels.add(caseModel);
             });
-            return caseModels;
         }
-        return null;
+        return caseModels;
     }
 
     @Override

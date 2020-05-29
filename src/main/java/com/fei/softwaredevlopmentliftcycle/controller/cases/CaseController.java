@@ -1,6 +1,7 @@
 package com.fei.softwaredevlopmentliftcycle.controller.cases;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.constant.StatusConstant;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.cases.CaseModel;
 import com.fei.softwaredevlopmentliftcycle.model.cases.WebCaseModel;
 import com.fei.softwaredevlopmentliftcycle.service.CaseServeice;
@@ -36,7 +37,7 @@ public class CaseController {
     @PostMapping("/create")
     public ApiResult<Integer> create(@RequestBody WebCaseModel webCaseModel) {
         if (webCaseModel.getCaseName() == null) {
-            return ApiResult.fail(500, "请求失败，参数错误");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(caseServeice.create(webCaseModel));
     }
@@ -44,7 +45,7 @@ public class CaseController {
     @GetMapping("/getList")
     public ApiResult<List<CaseModel>> getList(String name, Integer pid) {
         if (pid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(caseServeice.getList(name, pid));
     }
@@ -52,7 +53,7 @@ public class CaseController {
     @PostMapping("/delete")
     public ApiResult<String> delete(Integer cid) {
         if (cid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         caseServeice.delete(cid);
         return ApiResult.ok("删除成功");
@@ -61,7 +62,7 @@ public class CaseController {
     @PostMapping("/edit")
     public ApiResult<Integer> edit(@RequestBody WebCaseModel webCaseModel) {
         if (webCaseModel.getId() == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         caseServeice.edit(webCaseModel);
         return ApiResult.ok();
@@ -70,7 +71,7 @@ public class CaseController {
     @GetMapping("/getById")
     public ApiResult<CaseModel> getById(Integer cid) {
         if (cid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(caseServeice.getById(cid));
     }
@@ -102,8 +103,7 @@ public class CaseController {
         httpHeaders.add("Content-Disposition", "attachment;filename=" + filename);
 
         // 将byte数组、HttpHeader和HttpStatus传入ResponseEntity
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(workbook.getBytes(),
+        return new ResponseEntity<>(workbook.getBytes(),
                 httpHeaders, HttpStatus.OK);
-        return responseEntity;
     }
 }

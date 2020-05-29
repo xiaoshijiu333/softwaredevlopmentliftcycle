@@ -15,6 +15,10 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
  * @date 2019/5/4
  */
 public class DownloadExcel {
+
+    private DownloadExcel() {
+    }
+
     /**
      * @function: 下载导出Excel
      * @param sheetName 表格Sheet名

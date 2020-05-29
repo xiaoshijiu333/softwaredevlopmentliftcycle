@@ -1,6 +1,7 @@
 package com.fei.softwaredevlopmentliftcycle.controller.task;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.constant.StatusConstant;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.gante.GanTeModel;
 import com.fei.softwaredevlopmentliftcycle.model.gante.ParamsModel;
 import com.fei.softwaredevlopmentliftcycle.model.task.TaskModel;
@@ -49,7 +50,7 @@ public class TaskController {
     @GetMapping("/getList")
     public ApiResult<List<TaskModel>> getList(String name, Integer pid) {
         if (pid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(taskService.getList(name, pid));
     }
@@ -57,7 +58,7 @@ public class TaskController {
     @PostMapping("/delete")
     public ApiResult<String> delete(Integer tid) {
         if (tid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         taskService.delete(tid);
         return ApiResult.ok("删除成功");
@@ -66,7 +67,7 @@ public class TaskController {
     @PostMapping("/edit")
     public ApiResult<Integer> edit(@RequestBody WebTaskModel webTaskModel) {
         if (webTaskModel.getTid() == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         taskService.edit(webTaskModel);
         return ApiResult.ok(webTaskModel.getProjectId());
@@ -75,7 +76,7 @@ public class TaskController {
     @GetMapping("/getById")
     public ApiResult<TaskModel> getById(Integer tid) {
         if (tid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(taskService.getById(tid));
     }
@@ -105,9 +106,7 @@ public class TaskController {
         httpHeaders.add("Content-Disposition", "attachment;filename=" + filename);
 
         // 将byte数组、HttpHeader和HttpStatus传入ResponseEntity
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(workbook.getBytes(),
-                httpHeaders, HttpStatus.OK);
-        return responseEntity;
+        return new ResponseEntity<>(workbook.getBytes(), httpHeaders, HttpStatus.OK);
     }
 
     @GetMapping("/gante")

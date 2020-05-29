@@ -1,6 +1,7 @@
 package com.fei.softwaredevlopmentliftcycle.controller.file;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.log.Loggable;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.file.WebFileModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ import java.net.URLEncoder;
  */
 @RequestMapping("/file")
 @RestController
-public class FileController {
+public class FileController implements Loggable {
 
     @PostMapping("/upload")
     public ApiResult<WebFileModel> upload(@RequestParam("file") MultipartFile file)
@@ -48,21 +49,32 @@ public class FileController {
      * @return ResponseEntity
      */
     @GetMapping("/download")
-    public ResponseEntity download(String filename, String path) throws Exception {
+    public ResponseEntity download(String filename, String path) {
 
-        // 把文件读写到程序当中
-        InputStream io = new FileInputStream(path);
-        byte[] aByte = new byte[(io.available())];
-        io.read(aByte);
+        InputStream io = null;
+        try {
+            // 把文件读写到程序当中
+            io = new FileInputStream(path);
+            byte[] aByte = new byte[(io.available())];
+            io.read(aByte);
+            // 创建响应头
+            HttpHeaders httpHeaders = new HttpHeaders();
+            filename = URLEncoder.encode(filename, "UTF-8");
+            httpHeaders.add("Content-Disposition", "attachment;filename=" + filename);
 
-        // 创建响应头
-        HttpHeaders httpHeaders = new HttpHeaders();
-        filename = URLEncoder.encode(filename, "UTF-8");
-        httpHeaders.add("Content-Disposition", "attachment;filename=" + filename);
-
-        // 将byte数组、HttpHeader和HttpStatus传入ResponseEntity
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(aByte, httpHeaders,
-                HttpStatus.OK);
-        return responseEntity;
+            // 将byte数组、HttpHeader和HttpStatus传入ResponseEntity
+            return new ResponseEntity<>(aByte, httpHeaders, HttpStatus.OK);
+        } catch (IOException e) {
+            getLog().error(e.getMessage(), e);
+        } finally {
+            if (io != null) {
+                try {
+                    io.close();
+                } catch (IOException e) {
+                    getLog().error(e.getMessage(), e);
+                }
+            }
+        }
+        return null;
     }
 }

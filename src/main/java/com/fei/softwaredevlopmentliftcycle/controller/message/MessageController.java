@@ -1,6 +1,7 @@
 package com.fei.softwaredevlopmentliftcycle.controller.message;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.constant.StatusConstant;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.message.MessageModel;
 import com.fei.softwaredevlopmentliftcycle.model.message.NoticeMessageModel;
 import com.fei.softwaredevlopmentliftcycle.service.MessageService;
@@ -30,7 +31,7 @@ public class MessageController {
     @GetMapping("/getList")
     public ApiResult<List<MessageModel>> getList(String name) {
         if (StringUtils.isEmpty(name)) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(messageService.getList(name));
     }
@@ -39,7 +40,7 @@ public class MessageController {
     public ApiResult<String> notice(@RequestBody NoticeMessageModel messageModel) {
         if (StringUtils.isEmpty(messageModel.getMessageTitle())
                 || CollectionUtils.isEmpty(messageModel.getIds())) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         messageService.notice(messageModel);
         return ApiResult.ok("通知成功");
@@ -48,7 +49,7 @@ public class MessageController {
     @PostMapping("/noticeByPro")
     public ApiResult<String> noticeByPro(Integer pid, String messageTitle) {
         if (pid == null || StringUtils.isEmpty(messageTitle)) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         messageService.noticeByPro(pid, messageTitle);
         return ApiResult.ok("通知成功");
@@ -57,7 +58,7 @@ public class MessageController {
     @PostMapping("/noticeByName")
     public ApiResult<String> noticeByName(String name, String messageTitle) {
         if (StringUtils.isEmpty(name) || StringUtils.isEmpty(messageTitle)) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         messageService.noticeByName(name, messageTitle);
         return ApiResult.ok("通知成功");
@@ -66,7 +67,7 @@ public class MessageController {
     @PostMapping("/delete")
     public ApiResult<String> delete(Integer mid) {
         if (mid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         messageService.delete(mid);
         return ApiResult.ok("删除成功");
@@ -75,7 +76,7 @@ public class MessageController {
     @PostMapping("/read")
     public ApiResult<String> read(Integer mid) {
         if (mid == null) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         messageService.read(mid);
         return ApiResult.ok("标为已读成功");
@@ -84,7 +85,7 @@ public class MessageController {
     @PostMapping("/allRead")
     public ApiResult<String> allRead(String name) {
         if (StringUtils.isEmpty(name)) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         messageService.allRead(name);
         return ApiResult.ok("全部标为已读成功");
@@ -93,7 +94,7 @@ public class MessageController {
     @GetMapping("/notReadNum")
     public ApiResult<Integer> notReadNum(String name) {
         if (StringUtils.isEmpty(name)) {
-            return ApiResult.fail(500, "请求失败，参数为空");
+            return ApiResult.fail(500, StatusConstant.FAILTURE_MESSAGE_PARAMETER_ERROR);
         }
         return ApiResult.ok(messageService.notReadNum(name));
     }

@@ -1,9 +1,8 @@
 package com.fei.softwaredevlopmentliftcycle.controller.bug;
 
-import com.fei.common.data.ApiResult;
+import com.fei.common.server.model.ApiResult;
 import com.fei.softwaredevlopmentliftcycle.model.bug.BugModel;
 import com.fei.softwaredevlopmentliftcycle.model.bug.WebBugModel;
-import com.fei.softwaredevlopmentliftcycle.model.cases.CaseModel;
 import com.fei.softwaredevlopmentliftcycle.service.BugService;
 import com.fei.softwaredevlopmentliftcycle.util.DownloadExcel;
 import org.apache.commons.lang3.StringUtils;
@@ -79,9 +78,7 @@ public class BugController {
         httpHeaders.add("Content-Disposition", "attachment;filename=" + filename);
 
         // 将byte数组、HttpHeader和HttpStatus传入ResponseEntity
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(workbook.getBytes(),
-                httpHeaders, HttpStatus.OK);
-        return responseEntity;
+        return new ResponseEntity<>(workbook.getBytes(), httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/edit")

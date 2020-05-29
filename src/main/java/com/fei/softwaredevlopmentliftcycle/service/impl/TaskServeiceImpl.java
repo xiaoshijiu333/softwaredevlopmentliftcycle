@@ -58,8 +58,7 @@ public class TaskServeiceImpl implements TaskService {
         }
         example1.orderBy(Task.CREATE_TIME).desc();
         List<Task> tasks = taskMapper.selectByExample(example1);
-        List<TaskModel> taskModels = JSON.parseArray(JSON.toJSONString(tasks), TaskModel.class);
-        return taskModels;
+        return JSON.parseArray(JSON.toJSONString(tasks), TaskModel.class);
     }
 
     @Override
