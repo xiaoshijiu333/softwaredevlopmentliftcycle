@@ -12,6 +12,6 @@
 
 5. 系统效果图可以在 images/里面查看
 
-6. 本人博客地址：https://blog.csdn.net/shijiujiu33
+6. 博客地址：https://blog.csdn.net/shijiujiu33
 
 7. QQ：384115451
